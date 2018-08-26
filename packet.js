@@ -152,21 +152,21 @@ function printShape(shape, height, character){
 				console.log(design1)
 				break
 			case 'Diamond':
-				let design2 = ''
-				for (i = 0; i < height; i++){
-					for (j = 0; j < height - 1; j++){
-						design2 += ' '
+				let design2 = '';
+				for(i = 0; i < height * 2 - 1; i++) {
+					if (i < height) {
+						j = i
 					}
-					for (j = 0; j <= i; j++){
-						design2 += character
+					else {
+						j = height * 2 - i - 2
 					}
-					design2 += '\n'
+				  	design2 += Array(height - j).join(' ') + Array(j + 1).join(character  + ' ') + character + '\n';
 				}
-				console.log(design2)
+				console.log(design2);
 				break
 	}
 }
-printShape('Diamond', 4, '#')
+printShape('Diamond', 5, '#')
 // 9. Object literal
 // Define function traverseObject(someObj)
 // Print every property and it's value.
