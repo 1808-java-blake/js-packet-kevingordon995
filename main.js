@@ -75,7 +75,12 @@ function addInput(){
   a = parseInt(document.getElementById('num1').value)
   b = parseInt(document.getElementById('num2').value)
   c = a + b
-  document.getElementById('sum').innerText = c
+  if (isNaN(c)){
+    document.getElementById('sum').innerText = 'Cannot add values'
+  }
+  else {
+    document.getElementById('sum').innerText = c
+  }
 }
 // 7. Skills Event
 // NOTE: Write unobtrusive Javascript
@@ -84,27 +89,6 @@ function addInput(){
 // NOTE: no alert should appear when user deselects a skill.
 let skill = document.getElementsByName('skills').onchange = function () {skillChange(skill)}
 function skillChange(skill){
-  // let skill = document.querySelectorAll('select[name=skills] > option:checked')
-  // for (i = 0; i < skill.length; i++) {
-  //   if (skill[i].value === 'java') {
-  //     alert ("Are you sure that Java is one of your skills?")
-  //   }
-  //   if (skill[i].value === 'net') {
-  //     alert ("Are you sure that .NET is one of your skills?")
-  //   }
-  //   if (skill[i].value === 'dom') {
-  //     alert ("Are you sure that DOM is one of your skills?")
-  //   }
-  //   if (skill[i].value === 'html') {
-  //     alert ("Are you sure that HTML is one of your skills?")
-  //   }
-  //   if (skill[i].value === 'css') {
-  //     alert ("Are you sure that CSS is one of your skills?")
-  //   }
-  //   if (skill[i].value === 'javascript') {
-  //     alert ("Are you sure that Javascript is one of your skills?")
-  //   }
-  // }
   alert("Are you sure that " + skill.options[skill.selectedIndex].value + " is one of your skills?")
 }
 // 8. Favorite Color Event
@@ -123,21 +107,21 @@ function backgroundColor(){
 // When user hovers over an employees name:
 // 	Hide the name if shown.
 // 	Show the name if hidden.
-document.getElementsByClassName("empName").onmouseover = function() {hideName()}
-document.getElementsByClassName("empName").onmouseout = function() {showName()}
+document.getElementsByTagName('td').onmouseover = function() {hideName()}
 function hideName() {
-  let names = document.getElementsByClassName("empName")
+  let names = document.getElementsByTagName("td")
   for (let i in names) {
-    if (names[i].style.display === 'block') {
+    if (names[i].className === 'empName') {
       names[i].style.display = 'none'
     }
   }
 }
+document.getElementsByTagName('td').onmouseout = function() {showName()}
 function showName() {
   let names = document.getElementsByClassName("empName")
   for (let i in names) {
-    if (names[i].style.display === 'none') {
-      names[i].style.display = 'block'
+    if (names[i].className === 'empName') {
+      names[i].style.display = 'table-cell'
     }
   }
 }
@@ -188,5 +172,9 @@ function changeColor(evt) {
 // This function should traverse every node in the DOM. Use recursion.
 // On each node, call func(node).
 function walkTheDOM(node, func) {
-
+  let child = node.childNodes
+  for (i = 0; i < child.length; i++){
+    walkTheDOM(child[i], func);
+  }
+  func(node)
 }
